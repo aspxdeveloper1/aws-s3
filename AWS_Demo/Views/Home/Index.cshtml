@@ -1,0 +1,51 @@
+﻿@using AWS_Demo.Models;
+@model List<S3ObjectModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row">
+    <h2>UploadFile</h2>
+    @using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            @Html.TextBox("file", "", new { type = "file" }) <br />
+            <input type="submit" value="Upload" class="btn btn-default" />
+            @ViewBag.Message
+        </div>
+    }
+</div>
+
+<hr />
+<div class="row">
+    <h2>Uploaded Files</h2>
+    <div class="row table-bordered  bg-success">
+        <div class="col-md-5 bg-success">
+            Object Name
+        </div>
+        <div class="col-md-5  bg-success">
+            Object Size (KB)
+        </div>
+        <div class="col-md-2  bg-success">
+            Action
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-md-5">
+                @item.ObjectName
+            </div>
+            <div class="col-md-5">
+                @item.ObjectSize
+            </div>
+            <div class="col-md-2">
+                <a href="@Url.Content("~/Home/DeleteObject?name="+item.ObjectName)" class="glyphicon glyphicon-trash"></a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="@Url.Content("~/Home/DownloadObject?name="+item.ObjectName)" class="glyphicon glyphicon-download"></a>
+            </div>
+        </div>
+    }
+</div>

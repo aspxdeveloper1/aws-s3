@@ -1,0 +1,17 @@
+﻿@using AWS_Demo.Models;
+@model S3BucketModel
+@{
+    ViewBag.Title = "CreateBucket";
+}
+
+<div class="row">
+    <h2>Create AWS Bucket</h2>
+    @using (Html.BeginForm("CreateBucket", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div>
+            @Html.TextBoxFor(m => m.BucketName) <br />
+            <input type="submit" value="Create Bucket" class="btn btn-default" />
+            @ViewBag.Message
+        </div>
+    }
+</div>
